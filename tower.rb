@@ -1,3 +1,21 @@
+class Board
+
+	attr_reader :source_tower, :destination_tower, :towers, :last_move
+
+	def initialize(prvni,druha,treti)
+		@towers = [prvni, druha, treti]
+		@rotated_towers = towers.rotate
+	end
+
+	def record_last_move(source, destination, circle)
+		@last_move = [source,destination, circle]
+	end
+
+
+
+end
+
+
 
 class Tower
 
@@ -8,10 +26,13 @@ class Tower
 		@name = name
 	end
 
-	def can_send?(tower)
+	def can_send?(tower,board)
 		if @pole.empty? 
 			# can't givve circle
 			print "#{@name} can't send to #{tower.name}, #{@name} is empty\n"
+			return false
+		# if the same move
+		elsif (board.last_move != nil) && (tower == board.last_move[1]) && (board.last_move[0] == self) && (board.last_move[2] == self.pole.last_move)
 			return false
 		elsif tower.pole.empty?
 			print "#{@name} is able to send, #{tower.name} is empty\n" 
@@ -25,21 +46,25 @@ class Tower
 		end
 	end
 
-	def send_circle(tower)
+	def send_circle(tower, board)
 		if @pole.empty? 
 			"empty pole\n"
 			# can't givve circle
 			return false
 		elsif tower.pole.empty?
 			print "Tower empty - #{@name} - Sending circle #{@pole.last} to #{tower.name}\n"
-			tower.get_circle(@pole.last)
-			@pole.pop
+			board.record_last_move(self, tower, @pole.last)
+			print "Board - last  move -> #{board.last_move}\n"
+			tower.get_circle(@pole.pop)
 		elsif @pole.last > tower.pole.last
 			print "#{name} - can't send circle #{@pole.last}, it's bigger than destination on #{tower.name}.\n"
 			return false
 		# sending circle
 		elsif tower.pole.last > @pole.last
 			print "Ok, circle is smaller - #{@name} - Sending circle #{@pole.last} to #{tower.name}\n"
+			# tower.record_last_move(self,tower,@pole.last)
+			board.record_last_move(self, tower, @pole.last)
+			print "Board - last  move -> #{board.last_move}\n"
 			tower.get_circle(@pole.pop)
 			return true
 		else
@@ -66,7 +91,6 @@ class Tower
 
 	def logger(source, destination, message)
 		print("Source - #{source}, destination - #{destination}\n #{message} ")
-
 	end
 
 end

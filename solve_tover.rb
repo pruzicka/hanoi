@@ -4,7 +4,10 @@ prvni = Tower.new([3,2,1], "prvni")
 druha = Tower.new([],"druha")
 treti = Tower.new([], "treti")
 
-towers = [prvni,druha,treti]
+board = Board.new(prvni, druha, treti)
+
+
+towers = board.towers
 rotated_towers = towers.rotate
 
 while treti.pole != [3,2,1]
@@ -20,14 +23,14 @@ while treti.pole != [3,2,1]
 	end
 
 
-	while source_tower.can_send?(destination_tower)
-		source_tower.send_circle(destination_tower)
+	while source_tower.can_send?(destination_tower,board)
+		source_tower.send_circle(destination_tower, board)
 
 		if source_tower.pole.empty?
 			break
 		end
 
-		if source_tower.can_send?(destination_tower)
+		if source_tower.can_send?(destination_tower,board)
 		else
 			rotated_towers.rotate!
 			destination_tower = rotated_towers.first
