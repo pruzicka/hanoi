@@ -1,0 +1,18 @@
+pseudo cod
+
+opakuj, dokud neni posledni vez ve stavu, jako prvni na zacatku
+zacni s vezi, ktera ma nejvic kolecek, tower 1
+pokud neni vez prazdna 
+	vezmi nejvrchnejsi kolecko
+		zvol vez+1 a testni, jeslti prijme kolecko (ne kdyz uz ma kolecko, ktere je vetsi nez presouvane)
+			jestli ano, dej ji kolecko, odecti ho ze sebe
+	zkus dalsi kolecko a dej ho zase na vez+1
+		pokud ne vezmi dalsi vez (vez+1) a test
+	
+
+	pokud ne, je na rade dalsi vez
+
+
+	zapamatovat si kdo mi to kolecko predal a v dalsim tahu to neopakovat
+	vytvorit objekt, co ovlada board a pocita spravnou vez
+	vytvorit logovaci objekt

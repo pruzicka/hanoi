@@ -27,6 +27,7 @@ class Tower
 
 	def send_circle(tower)
 		if @pole.empty? 
+			"empty pole\n"
 			# can't givve circle
 			return false
 		elsif tower.pole.empty?
@@ -38,7 +39,7 @@ class Tower
 			return false
 		# sending circle
 		elsif tower.pole.last > @pole.last
-			print "circle is smaller - #{@name} - Sending circle #{@pole.last} to #{tower.name}\n"
+			print "Ok, circle is smaller - #{@name} - Sending circle #{@pole.last} to #{tower.name}\n"
 			tower.get_circle(@pole.pop)
 			return true
 		else
@@ -57,6 +58,15 @@ class Tower
 		else
 			print "#{name} - I have #{@pole}\n"
 		end
+	end
+
+	def empty?
+		return false if @pole.empty?
+	end
+
+	def logger(source, destination, message)
+		print("Source - #{source}, destination - #{destination}\n #{message} ")
+
 	end
 
 end
